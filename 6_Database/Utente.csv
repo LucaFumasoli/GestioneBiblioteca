@@ -1,0 +1,4 @@
+ID, Nome, Cognome, Password, Amministratore, E-mail
+0, bibliotecaia, _, admin123,1, biblioteca@samtrevano.ti.ch
+1, Luca, Fumasoli, 123, Luca.fuamsoli@samtrevano.ti.ch
+2, utente, 2, 123, utente.2@samtrevano.ti.ch
