@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+ 
+    <title>Libro</title>
+    <Link rel="shortcut icon" href="I1Cfumluc_fav.ico" type="image/x-icon">
+    <Link rel="icon" href="i19fumluc_orario.html" type="image/x-icon">
+
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Luca Fumasoli I2C">
+    <meta name="description" content="">
+
+  <!--Chrome e windows 10-->
+  <!--data creazione: 21.10.2021 data ultima modifica: 21.10.2021-->
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script>
+
+    $(function(){
+        $("#mySidenav").load("./SideNav.html");
+    });
+
+    function goBack(){
+        location.href = "./LibriNoleggiati.html";
+    }
+
+</script>
+
+<style>
+
+.libro {
+    width: 100%; 
+    height: 400px;
+}
+
+img {
+    height: 80%;
+}
+
+</style>
+</head>
+
+<body>
+<div>
+    <div id="mySidenav" class="sidenav"></div>
+</div>
+<div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span style="font-size:30px;">Biblioteca SAMT</span>
+<script>
+    var params = new URLSearchParams(window.location.search),
+    libroID = params.get("libroID");
+
+    document.write("<div id='" + libroID + "' class='libro'><h3>titolo</h3><img src='./Copertine/"+ libroID +".jpg' alt='...'>");
+    </script>
+    <span style="vertical-align: top;">data consegna</span><br>
+    <span style="vertical-align: top;">valutazione</span><br>
+    <span style="vertical-align: top;">trama</span><br>
+    <button onclick="(goBack())">Indietro</button>
+    </div>
+    </div>
+</body>  
+</html>

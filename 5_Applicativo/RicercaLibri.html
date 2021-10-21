@@ -2,7 +2,7 @@
 <html>
 <head>
  
-    <title>Libri noleggiati</title>
+    <title>Ricerca Libri</title>
     <Link rel="shortcut icon" href="I1Cfumluc_fav.ico" type="image/x-icon">
     <Link rel="icon" href="i19fumluc_orario.html" type="image/x-icon">
 
@@ -34,6 +34,10 @@
         var url = "./PaginaLibro.html?" + params.toString();
         location.href = url;
     }
+
+    function top10(){
+      //  location.href = "./LibriNoleggiati.html";
+    }
 </script>
 
 <style>
@@ -58,7 +62,15 @@ img {
 <div id="main">
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <span style="font-size:30px;">Biblioteca SAMT</span>
-    <h1>Libri noleggiati</h1>
+    <h1>Ricerca libri</h1>
+
+    <div>
+        <span>Cerca titolo libro: </span>
+        <input type="search" id="gsearch">
+        <button onclick="search()">Cerca</button>
+        <button onclick="top10()" style="margin-left: 30%;">Top 10 libri</button>
+    </div>
+    
     <div>
         <table>
         <script>
