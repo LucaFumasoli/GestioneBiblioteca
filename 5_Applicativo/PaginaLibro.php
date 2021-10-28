@@ -26,7 +26,7 @@
     });
 
     function goBack(){
-        location.href = "./LibriNoleggiati.html";
+        location.href = "./LibriNoleggiati.php";
     }
 
 </script>
@@ -52,15 +52,28 @@ img {
 <div id="main">
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <span style="font-size:30px;">Biblioteca SAMT</span>
-<script>
-    var params = new URLSearchParams(window.location.search),
-    libroID = params.get("libroID");
 
-    document.write("<div id='" + libroID + "' class='libro'><h3>titolo</h3><img src='./Copertine/"+ libroID +".jpg' alt='...'>");
-    </script>
-    <span style="vertical-align: top;">data consegna</span><br>
-    <span style="vertical-align: top;">valutazione</span><br>
-    <span style="vertical-align: top;">trama</span><br>
+    <?php
+    function readCSV($csv) {
+        $file = fopen($csv, 'r');
+        while (!feof($file)) {
+            $line[] = fgetcsv($file, 1024);
+        }
+        fclose($file);
+        return $line;
+    }
+
+    $csv = './db/Libro.csv';
+    $csv = readCSV($csv);
+
+    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $idLibro = substr($url, strpos($url, "=") + 1) + 1;
+
+    echo "<div id='" . $idLibro . "' class='libro'><h3>" . $csv[$idLibro][1] . "</h3><img src='./Copertine/" . $idLibro - 1 . ".jpg' alt='...'>";
+    ?>
+    <span style="vertical-align: top;">Autore: <?php echo $csv[$idLibro][2] ?></span><br>
+    <span style="vertical-align: top;">Anno pubblicazione: <?php echo $csv[$idLibro][3] ?></span><br>
+    <span style="vertical-align: top;">Descrizione: <?php echo $csv[$idLibro][4] ?></span><br>
     <button onclick="(goBack())">Indietro</button>
     </div>
     </div>
