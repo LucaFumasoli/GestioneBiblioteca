@@ -1,1 +1,4 @@
 ID_libro, ID_utente, Data noleggio, Data consegna, Data limite consegna
+3, 2, "10.10.2020", "", "10.24.2020"
+6, 2, "10.10.2020", "", "10.24.2020"
+0, 2, "10.10.2020", "", "10.24.2020"

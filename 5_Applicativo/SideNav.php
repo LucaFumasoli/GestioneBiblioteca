@@ -52,6 +52,10 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 
+<?php
+  $IDUtente="0";
+?>
+
 </script>
    
 </head>

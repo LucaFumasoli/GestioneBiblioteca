@@ -13,17 +13,18 @@
 
   <!--Chrome e windows 10-->
   <!--data creazione: 07.10.2021 data ultima modifica: 07.10.2021-->
-<script
-    src="https://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous">
-</script>
 
 <script>
 
-    $(function(){
-        $("#mySidenav").load("./SideNav.html");
-    });
+    function openBook(id){
+        var libroID = id;
+
+        var params = new URLSearchParams();
+        params.append("libroID", libroID);
+
+        var url = "./PaginaLibro.php?" + params.toString();
+        location.href = url;
+    }
 </script>
 
 <style>
@@ -43,7 +44,9 @@ img {
 
 <body>
 <div>
-    <div id="mySidenav" class="sidenav"></div>
+    <div id="mySidenav" class="sidenav">
+        <?php include "./SideNav.php" ?>
+    </div>
 </div>
 <div id="main">
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
@@ -73,18 +76,27 @@ img {
         $csv = './db/Libro.csv';
         $csv = readCSV($csv);
 
-        $numLibri = count($csv) - 2;
+        $nol = './db/Noleggio.csv';
+        $nol = readCSV($nol);
+
+        $numLibri = count($nol) - 2;
         for ($i=0; $i < floor($numLibri/6); $i++) {
             echo "<tr>";
             for ($j=0; $j<6; $j++) {
-                echo "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>" . $csv[1 + $i*6+$j][1] . "</span><br><span><span>" . $csv[1 + $i*6+$j][2] . "</span><br><span><span>" . $csv[1 + $i*6+$j][3] . "</span></div></td>";
+                echo "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j
+                 . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>"
+                 . $csv[1 + $i*6+$j][1] . "</span><br><span><span>" . $csv[1 + $i*6+$j][2] . "</span><br><span><span>"
+                 . $csv[1 + $i*6+$j][3] . "</span></div></td>";
             }
             echo "</tr>";
         }
         echo "<tr>";
         for ($i=0; $i <= floor($numLibri%6); $i++) {
             $idLibro = $numLibri-floor($numLibri%6)+$i;
-            echo "<td><div id='" . $idLibro . "' class='libro'  onclick='openBook(" . $idLibro . ")'><img src='./Copertine/". $idLibro .".jpg' alt='...' style='width: 100%;'><br><span><span>" . $csv[$idLibro+1][1] . "</span><br><span><span>" . $csv[$idLibro+1][2] . "</span><br><span><span>" . $csv[$idLibro+1][3] . "</span></div></td>";
+            echo "<td><div id='" . $idLibro . "' class='libro'  onclick='openBook(" . $idLibro
+             . ")'><img src='./Copertine/". $idLibro .".jpg' alt='...' style='width: 100%;'><br><span><span>"
+             . $csv[$idLibro+1][1] . "</span><br><span><span>" . $csv[$idLibro+1][2] . "</span><br><span><span>"
+             . $csv[$idLibro+1][3] . "</span></div></td>";
         }
         ?>
         </tr>
