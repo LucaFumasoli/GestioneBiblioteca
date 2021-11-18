@@ -14,19 +14,6 @@
   <!--Chrome e windows 10-->
   <!--data creazione: 07.10.2021 data ultima modifica: 07.10.2021-->
 
-<script>
-
-    function openBook(id){
-        var libroID = id;
-
-        var params = new URLSearchParams();
-        params.append("libroID", libroID);
-
-        var url = "./PaginaLibro.php?" + params.toString();
-        location.href = url;
-    }
-</script>
-
 <style>
 
 .libro {
@@ -35,11 +22,11 @@
     height: 400px;
 }
 
-img {
-    height: 80%;
-}
-
 </style>
+
+<script src="myscripts.js"></script>
+<link rel="stylesheet" type="text/css" href="./style.css">
+
 </head>
 
 <body>

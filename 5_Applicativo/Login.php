@@ -14,59 +14,12 @@
   <!--Chrome e windows 10-->
   <!--data creazione: 07.10.2021 data ultima modifica: 07.10.2021-->
 
-<script>
-    
-    function VerificaPassword() {
-
-    	ConfirmStatus = true;
-
-    	if (ConfirmStatus == true) {
-        	window.location.replace("./LibriNoleggiati.php");
-    	}
-    }
-
-</script>
-<style>
-
-div {
-	width: 400px;
-	height: 400px;
-	position: absolute;
-	top: 35%;
-	left: 40%;
-	text-align:center;
-	margin: 0;
-	margin-top: -100px;
-	margin-left: -100px;
-}
-
-table {
-	width: 300px;
-	height: 300px;
-	margin-left: auto; 
-	margin-right: auto;
-	border: 1px solid black;
-}
-
-button {
-    background-color: #008BD3;
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
-    color: #ffffff;
-}
-
-input {
-    display: block;
-    width: 95%;
-}
-
-</style>
+<script src="myscripts.js"></script>
+<link rel="stylesheet" type="text/css" href="./style.css">
 
 </head>
 
-<body style="color: #191970;">
+<body>
 	<?php
 	
 		function loginUtente() {
@@ -114,13 +67,9 @@ input {
 		}
     ?>
 
-	<div style="display: hidden">
-		<?php include "./SideNav.php" ?>
-	</div>
-
 	<form method="post">
-		<div>
-		<table>
+		<div class="loginDiv">
+		<table class="tab">
 			<tr style="background-color: #ddd;">
 				<td style="text-align: center;">
 					<h3>Biblioteca SAMT</h3>
@@ -130,16 +79,16 @@ input {
 				<td style="text-align: left;">Nome utente: </td>
 			</tr>
 			<tr>
-				<td><input type="text" name="nomeUtente" id="nomeUtente"></td>
+				<td><input type="text" name="nomeUtente" id="nomeUtente" class="inp"></td>
 			</tr>
 			<tr>
 				<td style="text-align: left;">Password: </td>
 			</tr>
 			<tr>
-				<td><input type="text" name="password" id="password"></td>
+				<td><input type="password" name="password" id="password" class="inp"></td>
 			</tr>
 			<tr>
-				<td> <input type="submit" name="button" class="button" />
+				<td> <input type="submit" name="button" class="inp" />
             </td>
 			</tr>
 		</table>

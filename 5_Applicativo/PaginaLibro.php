@@ -14,35 +14,9 @@
   <!--Chrome e windows 10-->
   <!--data creazione: 21.10.2021 data ultima modifica: 21.10.2021-->
 
-<script>
+<script src="myscripts.js"></script>
+<link rel="stylesheet" type="text/css" href="./style.css">
 
-    function goBack(){
-        location.href = "./LibriNoleggiati.php";
-    }
-
-</script>
-
-<style>
-
-.libro {
-    width: 100%; 
-    height: 400px;
-}
-
-button {
-    background-color: #008BD3;
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
-    color: #ffffff;
-}
-
-img {
-    height: 80%;
-}
-
-</style>
 </head>
 
 <body>
@@ -71,13 +45,13 @@ img {
         $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $idLibro = substr($url, strpos($url, "=") + 1) + 1;
 
-        echo "<div id='" . $idLibro . "' class='libro'><h3>" . $csv[$idLibro][1] . "</h3><img src='./Copertine/" . $idLibro - 1 . ".jpg' alt='...'>";
+        echo "<div id='" . $idLibro . "' class='libro1'><h3>" . $csv[$idLibro][1] . "</h3><img src='./Copertine/" . $idLibro - 1 . ".jpg' alt='...'>";
     ?>
     <br>
     <span style="vertical-align: top;">Autore: <?php echo $csv[$idLibro][2] ?></span><br>
     <span style="vertical-align: top;">Anno pubblicazione: <?php echo $csv[$idLibro][3] ?></span><br>
     <span style="vertical-align: top;">Descrizione: <?php echo $csv[$idLibro][4] ?></span><br>
-    <button onclick="(goBack())">Indietro</button>
+    <button onclick="(goBack())" class="button">Indietro</button>
 </div>
 </body>
 </html>
