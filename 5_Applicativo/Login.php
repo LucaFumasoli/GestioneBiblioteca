@@ -12,7 +12,7 @@
 	<meta name="description" content="">
 
   <!--Chrome e windows 10-->
-  <!--data creazione: 07.10.2021 data ultima modifica: 07.10.2021-->
+  <!--data creazione: 07.10.2021 data ultima modifica: 25.11.2021-->
 
 <script src="myscripts.js"></script>
 <link rel="stylesheet" type="text/css" href="./style.css">
@@ -79,16 +79,16 @@
 				<td style="text-align: left;">Nome utente: </td>
 			</tr>
 			<tr>
-				<td><input type="text" name="nomeUtente" id="nomeUtente" class="inp"></td>
+				<td><input type="text" name="nomeUtente" id="nomeUtente" class="inp" placeholder="Enter E-mail"></td>
 			</tr>
 			<tr>
 				<td style="text-align: left;">Password: </td>
 			</tr>
 			<tr>
-				<td><input type="password" name="password" id="password" class="inp"></td>
+				<td><input type="password" name="password" id="password" class="inp" placeholder="Enter Password"></td>
 			</tr>
 			<tr>
-				<td> <input type="submit" name="button" class="inp" />
+				<td> <input type="submit" name="button" class="button" />
             </td>
 			</tr>
 		</table>

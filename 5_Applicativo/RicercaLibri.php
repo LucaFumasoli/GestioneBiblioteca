@@ -12,7 +12,7 @@
     <meta name="description" content="">
 
   <!--Chrome e windows 10-->
-  <!--data creazione: 07.10.2021 data ultima modifica: 07.10.2021-->
+  <!--data creazione: 07.10.2021 data ultima modifica: 25.11.2021-->
 
 <script src="myscripts.js"></script>
 <link rel="stylesheet" type="text/css" href="./style.css">
@@ -29,13 +29,14 @@
 
         $searchBy = $_POST['searchBy'];
         $search = $_POST['search'];
-
         if ($search != null) {
             if ($searchBy == "titolo") {
                 searchBook($csv, $search, 1);
             }else {
                 searchBook($csv, $search, 2);
             }
+        }else {
+            echo printBooks($csv);
         }
     }
 
@@ -43,15 +44,13 @@
         $array = array();
 
         foreach ($arr as $item) { //scorre ogni riga della matrice
-            if (strpos(strtolower($item[$col]), strtolower($search)) != false)  { //se lelemento è contenuto ritorna true
+            if (strpos(strtolower($item[$col]), strtolower($search)) > 0)  { //se lelemento è contenuto ritorna true
                 array_push($array, $item); // aggiunge il libro all'array che viene ritornato
             }
         }
         
         $newContent = printBooks($array);
-
-        $string = "";
-        $string = preg_replace('/<div class="bookList">(.*?}<\/div>/', $newContent, $string);
+        echo printBooks($array);
 
         $csv2 = $array;
     }
@@ -74,8 +73,8 @@
             for ($j=0; $j<6; $j++) {
                 $print .= "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j
                  . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>"
-                 . $csv[1 + $i*6+$j][1] . "</span><br><span><span>" . $csv[1 + $i*6+$j][2] . "</span><br><span><span>"
-                 . $csv[1 + $i*6+$j][3] . "</span></div></td>";
+                 . $csv[$i*6+$j][1] . "</span><br><span><span>" . $csv[$i*6+$j][2] . "</span><br><span><span>"
+                 . $csv[$i*6+$j][3] . "</span></div></td>";
             }
             $print .= "</tr>";
         }
@@ -96,9 +95,12 @@
         <?php include "./SideNav.php" ?>
     </div>
 </div>
+
 <div id="main">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-    <span style="font-size:30px;">Biblioteca SAMT</span>
+     <div>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <span style="font-size:30px;">Biblioteca SAMT</span>
+    </div>
     <h1>Ricerca libri</h1>
 
     <form method="post">
@@ -110,7 +112,6 @@
             </select>
             <input type="text" id="search" name="search">
             <td> <input type="submit" name="button" />
-            
         </div>
     </form>
 
@@ -123,14 +124,15 @@
         $csv = './db/Libro.csv';
         $csv = readCSV($csv);
         
-        echo printBooks($csv);
 
         ?>
         <?php
-                if(array_key_exists('button', $_POST)) { // appena viene premuto il bottone submit fa partire la verifica dell'account
-                    search();
-                }
-            ?>
+            if(array_key_exists('button', $_POST)) { // se viene premuto il bottone submit fa partire la ricerca altrimenti stampa tutti i libri
+                search();
+            }else {
+                echo printBooks($csv);
+            }
+        ?>
         </tr>
         </table>
     </div>

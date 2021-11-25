@@ -22,7 +22,7 @@ function top10(){
 }
 
 function goBack(){
-    location.href = "./LibriNoleggiati.php";
+    location.href = document.referrer;
 }
 
 function openNav() {
@@ -32,5 +32,15 @@ function openNav() {
   
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("main").style.opacity = 0.2;
+}
+  
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("main").style.opacity = 1;
 }
