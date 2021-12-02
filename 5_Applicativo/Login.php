@@ -21,7 +21,9 @@
 
 <body>
 	<?php
-	
+		
+		$userName = isset($_POST["nomeUtente"]) ? $_POST["nomeUtente"] : "";
+
 		function loginUtente() {
 			$userName = $_POST['nomeUtente'];
 			$password = $_POST['password'];
@@ -30,6 +32,8 @@
 
 			if ($userName != null && $password != null) {
 				if (verificaUtente($userName, $password, $users) == $password) {
+					$cookie = $userName;
+					setcookie('userName', $cookie);
 					header('Location: ./LibriNoleggiati.php');
 				}else {
 					echo "Nome utente o password sbagliata";
@@ -79,7 +83,7 @@
 				<td style="text-align: left;">Nome utente: </td>
 			</tr>
 			<tr>
-				<td><input type="text" name="nomeUtente" id="nomeUtente" class="inp" placeholder="Enter E-mail"></td>
+				<td><input type="text" name="nomeUtente" id="nomeUtente" class="inp" placeholder="Enter username" value="<?php echo $userName; ?>"></td>
 			</tr>
 			<tr>
 				<td style="text-align: left;">Password: </td>
@@ -88,7 +92,7 @@
 				<td><input type="password" name="password" id="password" class="inp" placeholder="Enter Password"></td>
 			</tr>
 			<tr>
-				<td> <input type="submit" name="button" class="button" />
+				<td> <input type="submit" name="button" class="button" value="Login"/>
             </td>
 			</tr>
 		</table>

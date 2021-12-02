@@ -58,31 +58,79 @@
                 return $line;
             }
 
-            $csv = './db/Libro.csv';
-            $csv = readCSV($csv);
+            function getUserID() {
+                $csv = './db/Utente.csv';
+                $csv = readCSV($csv);
 
-            $nol = './db/Noleggio.csv';
-            $nol = readCSV($nol);
-
-            $numLibri = count($nol) - 2;
-            for ($i=0; $i < floor($numLibri/6); $i++) {
-                echo "<tr>";
-                for ($j=0; $j<6; $j++) {
-                    echo "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j
-                    . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>"
-                    . $csv[1 + $i*6+$j][1] . "</span><br><span><span>" . $csv[1 + $i*6+$j][2] . "</span><br><span><span>"
-                    . $csv[1 + $i*6+$j][3] . "</span></div></td>";
+                for ($i=1; $i < count($csv); $i++) {
+                    if (str_replace(' ', '', $csv[$i][3]) == $_COOKIE['userName']) {
+                        return $csv[$i][0];
+                    }
                 }
-                echo "</tr>";
             }
-            echo "<tr>";
-            for ($i=0; $i <= floor($numLibri%6); $i++) {
-                $idLibro = $numLibri-floor($numLibri%6)+$i;
-                echo "<td><div id='" . $idLibro . "' class='libro'  onclick='openBook(" . $idLibro
-                . ")'><img src='./Copertine/". $idLibro .".jpg' alt='...' style='width: 100%;'><br><span><span>"
-                . $csv[$idLibro+1][1] . "</span><br><span><span>" . $csv[$idLibro+1][2] . "</span><br><span><span>"
-                . $csv[$idLibro+1][3] . "</span></div></td>";
+
+            function getRentedBooksID($id) {
+                $csv = './db/Noleggio.csv';
+                $csv = readCSV($csv);
+
+                $arr = array();
+
+                for ($i=1; $i < count($csv) - 1; $i++) {
+                    if ($csv[$i][1] == $id) {
+                        array_push($arr, $csv[$i][0]);
+                    }
+                }
+                
+                return $arr;
             }
+
+            function getBooks($books) {
+                $csv = './db/Libro.csv';
+                $csv = readCSV($csv);
+
+                $arr = array();
+
+                for ($i=1; $i < count($csv); $i++) {
+                    if (in_array($csv[$i][0], $books)) {
+                        array_push($arr, $csv[$i]);
+                    }
+                }
+                
+                return $arr;
+            }
+
+            function printBooks($csv) {
+                $numLibri = count($csv) - 1;
+                $print = "";
+                for ($i=0; $i < floor($numLibri/6); $i++) {
+                    $print = "<tr>";
+                    for ($j=0; $j<6; $j++) {
+                        $print .= "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j
+                         . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>"
+                         . $csv[$i*6+$j][1] . "</span><br><span><span>" . $csv[$i*6+$j][2] . "</span><br><span><span>"
+                         . $csv[$i*6+$j][3] . "</span></div></td>";
+                    }
+                    $print .= "</tr>";
+                }
+                $print .= "<tr>";
+                for ($i=0; $i <= floor($numLibri%6); $i++) {
+                    $idLibro = $numLibri-floor($numLibri%6)+$i;
+                    $print .= "<td><div id='" . $csv[$idLibro][0] . "' class='libro' onclick='openBook(" . $csv[$idLibro][0]
+                     . ")'><img src='./Copertine/". $csv[$idLibro][0] .".jpg' alt='...' style='width: 100%;'><br><span><span>"
+                     . $csv[$idLibro][1] . "</span><br><span><span>" . $csv[$idLibro][2] . "</span><br><span><span>"
+                     . $csv[$idLibro][3] . "</span></div></td>";
+                }
+
+                if (is_null($print)) {
+                    $print = "Al momento non hai nessun libro noleggiato";
+                }
+                   return $print;
+            }
+
+            $id = getUserID();
+            $books = getRentedBooksID($id);
+            $books = getBooks($books);
+            echo printBooks($books);
         ?>
         </tr>
         </table>

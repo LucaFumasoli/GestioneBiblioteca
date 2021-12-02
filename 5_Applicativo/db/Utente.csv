@@ -1,4 +1,7 @@
 ID, Nome, Cognome, Username, Password, Amministratore, E-mail
-0, admin, 1, admin.1, pass, 1, biblioteca@samtrevano.ti.ch
-1, Luca, Fumasoli, Luca.Fumasoli, password123, 0, Luca.fumasoli@samtrevano.ti.ch
-2, utente, 2, utente.2, password123, 0, utente.2@samtrevano.ti.ch
+0,admin,1, admin.1,pass,1,biblioteca@samtrevano.ti.ch
+1,Luca,Fumasoli,Luca.Fumasoli,password123,0,Luca.fumasoli@samtrevano.ti.ch
+2,utente,2,utente.2,password123,0,utente.2@samtrevano.ti.ch
+3,utente,3,utente.3,pass,0,utente.3@samtrevano.ti.ch
+4,utente,4,utente.4,pass,0,utente4@gmail.com
+6,utente,5,utente.5,pass,0,utente5@gmail.com

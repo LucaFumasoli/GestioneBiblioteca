@@ -111,12 +111,11 @@
                 <option value="autore">autore</option>
             </select>
             <input type="text" id="search" name="search">
-            <td> <input type="submit" name="button" />
+            <input type="submit" name="button" />
+            <button onclick="top10()">Top 10 libri</button>
         </div>
     </form>
-
-    <button onclick="top10()" style="margin-left: 30%;">Top 10 libri</button>
-
+    <br>
     <div class="bookList">
         <table>
         <?php

@@ -52,17 +52,30 @@
         $idLibro = substr($url, strpos($url, "=") + 1) + 1; // prende solo la parte in cui c'è l'id della variabile
 
         function rentBook() {
+            $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; //prende l'url e lo slava in una variabile
+            $idLibro = substr($url, strpos($url, "=") + 1); // prende solo la parte in cui c'è l'id della variabile
             $array = array();
-            $idUtente = 0;
-            $array[0] = $idUtente;
-            $array[1] = $idUtente;
-			$array[2] = $_POST['dataR'];
+            $array[0] = $idLibro;
+            $array[1] = getUserID();
+            $date = $_POST['dataR'];
+			$array[2] = date('d-m-Y', strtotime($date));
             $array[3] = "";
-			$array[4] = date('Y-m-d', strtotime($array[2] . "+1 months"));  //aggiunge un mese alla data di ritiro per la consegna
+			$array[4] = date('d-m-Y', strtotime($date . "+1 months"));  //aggiunge un mese alla data di ritiro per la consegna
             
             $handle = fopen("./db/Noleggio.csv", "a"); //apre il file di db dei noleggi ed aggiunge il nuovo noleggio
             fputcsv($handle, $array);
             fclose($handle);
+        }
+        
+        function getUserID() {
+            $csv = './db/Utente.csv';
+            $csv = readCSV($csv);
+
+            for ($i=1; $i < count($csv); $i++) {
+                if (str_replace(' ', '', $csv[$i][3]) == $_COOKIE['userName']) {
+                    return $csv[$i][0];
+                }
+            }
         }
    ?>
 
