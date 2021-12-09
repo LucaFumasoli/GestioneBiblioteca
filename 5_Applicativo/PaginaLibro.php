@@ -28,7 +28,7 @@
 <body>
 <div>
     <div id="mySidenav" class="sidenav">
-        <?php include "./SideNav.php" ?>  <!-- aggiunge la pagina del menu dentro un div coperto -->
+        <?php include "./SideNav.php" ?>  <!-- aggiunge la pagina del menu dentro un div -->
     </div>
 </div>
 <div id="main">
@@ -46,34 +46,38 @@
         }
 
         $csv = './db/Libro.csv';
-        $csv = readCSV($csv);
+        $csv = readCSV($csv); //legge il file dei libri e lo salva in una matrice
 
         $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; //prende l'url e lo slava in una variabile
         $idLibro = substr($url, strpos($url, "=") + 1) + 1; // prende solo la parte in cui c'è l'id della variabile
 
         function rentBook() {
+            $csv = './db/Noleggio.csv';
+            $csv = readCSV($csv); //legge il file dei noleggi e lo salva in una matrice
             $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; //prende l'url e lo slava in una variabile
             $idLibro = substr($url, strpos($url, "=") + 1); // prende solo la parte in cui c'è l'id della variabile
             $array = array();
-            $array[0] = $idLibro;
-            $array[1] = getUserID();
-            $date = $_POST['dataR'];
-			$array[2] = date('d-m-Y', strtotime($date));
-            $array[3] = "";
-			$array[4] = date('d-m-Y', strtotime($date . "+1 months"));  //aggiunge un mese alla data di ritiro per la consegna
+            $array[0] = count($csv) - 2; // conta le linee della matrice e sottrae 2 per la linea vuota e per l'indice 0
+            $array[1] = $idLibro;
+            $array[2] = getUserID();
+            $date = $_POST['dataR']; // prende la data del ritiro inseria nel form
+			$array[3] = date('d-m-Y', strtotime($date));
+            $array[4] = "";
+			$array[5] = date('d-m-Y', strtotime($date . "+1 months"));  //aggiunge un mese alla data di ritiro per la consegna
+			$array[6] = 0;
             
             $handle = fopen("./db/Noleggio.csv", "a"); //apre il file di db dei noleggi ed aggiunge il nuovo noleggio
             fputcsv($handle, $array);
             fclose($handle);
         }
         
-        function getUserID() {
+        function getUserID() { // metodo per prendere l'id dell'utente
             $csv = './db/Utente.csv';
-            $csv = readCSV($csv);
+            $csv = readCSV($csv); //legge il file degli utenti e lo salva in una matrice
 
-            for ($i=1; $i < count($csv); $i++) {
-                if (str_replace(' ', '', $csv[$i][3]) == $_COOKIE['userName']) {
-                    return $csv[$i][0];
+            for ($i=1; $i < count($csv); $i++) { //scorre la matrice
+                if (str_replace(' ', '', $csv[$i][3]) == $_COOKIE['userName']) { //controlla se il nome utente della riga è uguale al nome utente salvato nel cookie
+                    return $csv[$i][0]; //ritorna l'id dell'utente
                 }
             }
         }
@@ -108,12 +112,12 @@
 
     <label for="dataR"><b>Data ritiro</b></label><br>
     <input type="date" name="dataR" id="dataR" required><br><br>
-
     <button type="submit" class="btn" name="btn">Noleggia</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Cancella</button>
+    <!-- chiude il form quando viene premuto il bottone -->
+    <button type="button" class="btn cancel" onclick="closeForm()">Cancella</button> 
     <p style="color: red">
         <?php
-            if(array_key_exists('btn', $_POST)) {
+            if(array_key_exists('btn', $_POST)) { // quando viene premuto il bottone fa partire il metodo per noleggiare il libro
                 rentBook();
             }
         ?>

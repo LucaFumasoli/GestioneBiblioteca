@@ -22,19 +22,24 @@
 <body>
 	<?php
 		
+		//controlla se è già stato immesso un nome utente, così se l'utente sbaglia password non deve riimmettere il nome utente
 		$userName = isset($_POST["nomeUtente"]) ? $_POST["nomeUtente"] : "";
 
-		function loginUtente() {
+		function loginUtente() { // metodo per fare il login dell'utente
 			$userName = $_POST['nomeUtente'];
 			$password = $_POST['password'];
-			$csv = './db/Utente.csv';
+			$csv = './db/Utente.csv'; //legge il file degli utenti e lo salva in una matrice
 			$users = readCSV($csv);
 
-			if ($userName != null && $password != null) {
-				if (verificaUtente($userName, $password, $users) == $password) {
+			if ($userName != null && $password != null) { //controllache `stato inserito un nome utente ed una password
+				if (verificaUtente($userName, $password, $users) == $password) { // prende la password corretta del nome utente inserito e controlla se è uguale alla password inserita
 					$cookie = $userName;
-					setcookie('userName', $cookie);
-					header('Location: ./LibriNoleggiati.php');
+					setcookie('userName', $cookie); //salva il nome utente in un cookie
+					if (isAdmin($userName, $users)) { //controlla se l'
+						header('Location: ./MostraUtenti.php');
+					}else {
+						header('Location: ./LibriNoleggiati.php');
+					}
 				}else {
 					echo "Nome utente o password sbagliata";
 				}
@@ -64,6 +69,16 @@
 			foreach ($arr as $item) { //scorre ogni riga della matrice
 				if ($userName == $item[3]) { //se lelemento è contenuto ritorna true
 					return $item[4] == $password;
+				}
+			}
+
+			return false;
+		}
+
+		function isAdmin($userName, $arr) { //metodo che verifica se l'utente è un amministratore
+			foreach ($arr as $item) { //scorre ogni riga della matrice
+				if ($userName == $item[3]) { //trova la posizione dell'utente nel file
+					return $item[5]; //ritorna true se è amministratore e false se non lo è
 				}
 			}
 

@@ -22,21 +22,20 @@
 <body>
 
 <?php
-    function search() {
+    function search() { // metodo per far la ricerca dei libri
         $csv = './db/Libro.csv';
-        $csv = readCSV($csv);
-        $csv2 = "";
+        $csv = readCSV($csv); //legge il file dei libri e lo salva in una matrice
 
-        $searchBy = $_POST['searchBy'];
+        $searchBy = $_POST['searchBy']; // vede se la ricerca è per titolo o autore
         $search = $_POST['search'];
         if ($search != null) {
-            if ($searchBy == "titolo") {
+            if ($searchBy == "titolo") { // condizione per vedere se cercare per titolo o autore
                 searchBook($csv, $search, 1);
             }else {
                 searchBook($csv, $search, 2);
             }
         }else {
-            echo printBooks($csv);
+            echo printBooks($csv); // se non è stato cercato nulla ristampa i libri di prima
         }
     }
 
@@ -49,13 +48,10 @@
             }
         }
         
-        $newContent = printBooks($array);
-        echo printBooks($array);
-
-        $csv2 = $array;
+        echo printBooks($array); // ritorna i libri trovati da cosa si ha cercato
     }
     
-    function readCSV($csv) {
+    function readCSV($csv) { // metodo per leggere un file .csv
         $file = fopen($csv, 'r');
         while (!feof($file)) {
             $line[] = fgetcsv($file, 1024);
@@ -65,12 +61,12 @@
         return $line;
     }
 
-    function printBooks($csv) {
-        $numLibri = count($csv) - 1;
+    function printBooks($csv) { // metodo per ritornare una stringa con tutti i libri da stampare
+        $numLibri = count($csv) - 1; // conta quanti libri ci sono
         $print = "";
-        for ($i=0; $i < floor($numLibri/6); $i++) {
-            $print = "<tr>";
-            for ($j=0; $j<6; $j++) {
+        for ($i=0; $i < floor($numLibri/6); $i++) { // righe da 6 deve stampare prima di non avere abbastanza libri
+            $print .= "<tr>";
+            for ($j=0; $j<6; $j++) { // aggiunge i 6 libri della riga alla stringa ritornata
                 $print .= "<td><div id='" . $i*6+$j . "' + class='libro' onClick='openBook(" . $i*6+$j
                  . ")'><img src='./Copertine/" . $i*6+$j . ".jpg' alt='...' style='width: 100%;'><br><span>"
                  . $csv[$i*6+$j][1] . "</span><br><span><span>" . $csv[$i*6+$j][2] . "</span><br><span><span>"
@@ -79,30 +75,31 @@
             $print .= "</tr>";
         }
         $print .= "<tr>";
-        for ($i=0; $i <= floor($numLibri%6); $i++) {
+        for ($i=0; $i <= floor($numLibri%6); $i++) { // continua a ciclare finchè finiscono i libri
             $idLibro = $numLibri-floor($numLibri%6)+$i;
             $print .= "<td><div id='" . $csv[$idLibro][0] . "' class='libro' onclick='openBook(" . $csv[$idLibro][0]
              . ")'><img src='./Copertine/". $csv[$idLibro][0] .".jpg' alt='...' style='width: 100%;'><br><span><span>"
              . $csv[$idLibro][1] . "</span><br><span><span>" . $csv[$idLibro][2] . "</span><br><span><span>"
              . $csv[$idLibro][3] . "</span></div></td>";
         }
-       return $print;
+       return $print; // ritorna i libri da stampare
     }
 ?>
 
 <div>
     <div id="mySidenav" class="sidenav">
-        <?php include "./SideNav.php" ?>
+        <?php include "./SideNav.php" ?>  <!-- aggiunge la pagina del menu dentro un div -->
     </div>
 </div>
 
 <div id="main">
      <div>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> <!-- apre il menu quando si preme sopra -->
         <span style="font-size:30px;">Biblioteca SAMT</span>
     </div>
     <h1>Ricerca libri</h1>
 
+    <!-- form per la ricerca dei libri -->
     <form method="post">
         <div>
             <span>Cerca libro per : </span>
@@ -120,12 +117,9 @@
         <table>
         <?php
 
-        $csv = './db/Libro.csv';
-        $csv = readCSV($csv);
+            $csv = './db/Libro.csv'; 
+            $csv = readCSV($csv); //legge il file dei libri e lo salva in una matrice
         
-
-        ?>
-        <?php
             if(array_key_exists('button', $_POST)) { // se viene premuto il bottone submit fa partire la ricerca altrimenti stampa tutti i libri
                 search();
             }else {

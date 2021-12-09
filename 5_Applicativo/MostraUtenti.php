@@ -21,16 +21,16 @@
 
 <div>
     <div id="mySidenav" class="sidenav">
-        <?php include "./AdminSideNav.php" ?>
+        <?php include "./AdminSideNav.php" ?> <!-- aggiunge la pagina del menu dentro un div -->
     </div>
 </div>
 
 <div id="main">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> <!-- apre il menu quando si preme sopra -->
     <span style="font-size:30px;">Biblioteca SAMT</span>
     <h2>Mostra utenti</h2>
 
-    <!-- lista degli utenti con bottone cancella e modifica -->
+    <!-- lista degli utenti con bottone per salvare modifiche -->
     <div>
 
         <table border="1">
@@ -46,7 +46,7 @@
 
             <?php
 
-            function readCSV($csv) {
+            function readCSV($csv) { // metodo per leggere un file .csv
                 $file = fopen($csv, 'r');
                 while (!feof($file) ) {
                     $line[] = fgetcsv($file, 1024);
@@ -56,25 +56,19 @@
             }
 
             $users = "./db/Utente.csv";
-            $users = readCSV($users);
+            $users = readCSV($users); //legge il file degli utenti e lo salva in una matrice
 
             for ($row = 1; $row < count($users) - 1; $row++): ?>
-
                 <tr>
-
-                    <form method="POST">
-
-                        <td><input name="id" type="text" value="<?php echo $users[$row][0]; ?>" style="border-style: hidden" readonly></td>
-                        <td><input name="nome" type="text" value="<?php echo $users[$row][1]; ?>" style="border-style: hidden"></td>
-                        <td><input name="cognome" type="text" value="<?php echo $users[$row][2]; ?>" style="border-style: hidden"></td>
-                        <td><input name="nomeutente" type="text" value="<?php echo $users[$row][3]; ?>" style="border-style: hidden"></td>
-                        <td><input name="password" type="password" value="<?php echo $users[$row][4]; ?>" style="border-style: hidden"></td>
-                        <td><input name="amministratore" type="text" value="<?php echo $users[$row][5]; ?>" style="border-style: hidden"></td>
-                        <td><input name="email" type="text" value="<?php echo $users[$row][6]; ?>" style="border-style: hidden"></td>
-
-                    </form>
+                    <!-- righe della tabella che contengono le informazioni degli utenti -->
+                    <td><p><?php echo $users[$row][0]; ?></p></td>
+                    <td><p><?php echo $users[$row][1]; ?></p></td>
+                    <td><p><?php echo $users[$row][2]; ?></p></td>
+                    <td><p><?php echo $users[$row][3]; ?></p></td>
+                    <td><p><?php echo $users[$row][4]; ?></p></td>
+                    <td><p><?php echo $users[$row][5]; ?></p></td>
+                    <td><p><?php echo $users[$row][6]; ?></p></td>
                 </tr>
-
             <?php endfor; ?>
         </table>
 
