@@ -109,7 +109,6 @@
             </select>
             <input type="text" id="search" name="search">
             <input type="submit" name="button" />
-            <button onclick="top10()">Top 10 libri</button>
         </div>
     </form>
     <br>

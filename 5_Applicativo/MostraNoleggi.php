@@ -96,7 +96,7 @@
                         <td><p> <?php echo $nol[$row][4] ?></p></td>
                         <td><?php echo $nol[$row][5]; ?></td>
                         <td>
-                        <?php if ($nol[$row][4] == "") { ?> <!-- Controlla se il libro è stato ritornato, se no mostra il select per insaerire la valutazione altrimenti mette la valutazione corretta -->
+                        <?php if ($nol[$row][4] == "") { ?> <!-- Controlla se il libro è stato ritornato, se no mostra il select per inserire la valutazione ed il bottone per conegnarlo altrimenti mette la valutazione corretta -->
                             <select id="rating" name="rating">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -109,13 +109,11 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select>
+				            <td><input type="submit" name="<?php echo $idNol ?>" class="<?php echo $idNol ?>" value="Libro consegnato"/>
                         <?php }else { ?>
                             <p> <?php echo $nol[$row][6] ?></p>
                         <?php } ?>
                         </td>
-                        <?php if ($nol[$row][4] == "") { ?> < <!-- Controlla se il libro è stato ritornato, se non è stato ritornato mostra il bottone per ritornarlo altrimenti non lo mostra -->
-				            <td><input type="submit" name="<?php echo $idNol ?>" class="<?php echo $idNol ?>" value="Libro consegnato"/>
-                        <?php } ?>
 
                         <?php
                             if(array_key_exists($idNol, $_POST)) { //se il bottone viene schiacciato fa partire il metodo per marcare il libro come ritornato

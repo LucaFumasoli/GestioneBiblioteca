@@ -17,14 +17,6 @@ function openBook(id){
     location.href = url;
 }
 
-function top10(){
-    
-}
-
-function goBack(){
-    location.href = document.referrer;
-}
-
 //funzione per aprire il side menu
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";

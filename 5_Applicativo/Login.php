@@ -32,9 +32,9 @@
 			$users = readCSV($csv);
 
 			if ($userName != null && $password != null) { //controllache `stato inserito un nome utente ed una password
-				if (verificaUtente($userName, $password, $users) == $password) { // prende la password corretta del nome utente inserito e controlla se è uguale alla password inserita
-					$cookie = $userName;
-					setcookie('userName', $cookie); //salva il nome utente in un cookie
+				$cookie = $userName;
+				setcookie('userName', $cookie); //salva il nome utente in un cookie
+				if (verifyUser($userName, $password, $users) == $password) { // prende la password corretta del nome utente inserito e controlla se è uguale alla password inserita
 					if (isAdmin($userName, $users)) { //controlla se l'
 						header('Location: ./MostraUtenti.php');
 					}else {
@@ -65,7 +65,7 @@
 			return $arr;
         }
 
-		function verificaUtente($userName, $password, $arr) { //metodo che cerca se un elemento è contenuto in una matrice
+		function verifyUser($userName, $password, $arr) { //metodo che cerca se un elemento è contenuto in una matrice
 			foreach ($arr as $item) { //scorre ogni riga della matrice
 				if ($userName == $item[3]) { //se lelemento è contenuto ritorna true
 					return $item[4] == $password;

@@ -68,11 +68,11 @@
         <!-- form per inserire le informazioni del nuovo utente -->
         <form  method="POST">
             <div class="form-group">
-                <label>nome</label><br>
+                <label>nome:</label><br>
                 <input type="text" name="nome" value="" required/><br>
-                <label>cognome</label><br>
+                <label>cognome:</label><br>
                 <input type="text" name="cognome" value="" required/><br>
-                <label>password</label><br>
+                <label>password:</label><br>
                 <input type="password" name="password" value="" required/><br>
                 <label>e-mail:</label><br>
                 <input type="text" name="email" value="" required/><br>
